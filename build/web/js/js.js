@@ -6,20 +6,19 @@ var dt = 0.016683;
 var timer;
 var gasolina = 100;
 var dificultad = "media";
-var gasolinaTotal = 100
+var gasolinaTotal = 100;
 var intentos = 1;
 var modeloNave = "estandar";
 var modeloLuna = "amarilla";
 var timerFuel = null;
 
-window.onload = function arrancarJuego() {
-    //CAPTURA SI EL DISPOSITIVO RECIBE EVENTOS OUNTOUCH (SMARTPHONE)
+window.onload = function () {
+    
     initConfig();
     document.getElementById("btnSave").onclick = function () {
         saveConfig();
         cambiarDificultad();
     }
-
     //CAMBIAR LA DIFICULTAD DEL JUEGO
     document.getElementById("dificultadFac").onclick = function () {
         dificultad = "facil";
@@ -57,8 +56,8 @@ window.onload = function arrancarJuego() {
         modeloNave = "starWars"
         cambiarModeloNave();
     }
-
-
+    
+    //CAPTURA SI EL DISPOSITIVO RECIBE EVENTOS OUNTOUCH (SMARTPHONE)
     function is_touch_device() {
         if ('ontouchstart' in window) {
             document.getElementById("botonOn").style.display = "inline-block";
@@ -81,7 +80,7 @@ window.onload = function arrancarJuego() {
     document.getElementById("botonAjustes").onclick = function () {
         mostrarAjustes();
     };
-    //CAPTURANDO EVENTOS PARA EL PANEL DERECHO EN SMARTPHONE
+    //CAPTURANDO EVENTOS PARA EL PANcEL DERECHO EN SMARTPHONE
     document.getElementById("reanudaSmartphone").onclick = function () {
         reanudarSmartphone();
     };
@@ -110,68 +109,7 @@ window.onload = function arrancarJuego() {
     document.getElementById("jugarAgainSmartphone").onclick = function () {
         reiniciarJuegoSmartphone();
     };
-//    //CAMBIAR LA DIFICULTAD DEL JUEGO
-//    document.getElementById("dificultad").onclick = function cambiarDificultad() {
-//        switch (dificultad) {
-//            case 1:
-//                gasolina = 50;
-//                gasolinaTotal = 50;
-//                document.getElementById("dificultad").innerHTML = "Media";
-//                dificultad = 2
-//                restart();
-//                break;
-//            case 2:
-//                gasolina = 25;
-//                gasolinaTotal = 35;
-//                document.getElementById("dificultad").innerHTML = "Difícil";
-//                dificultad = 3
-//                restart();
-//                break;
-//            case 3:
-//                gasolina = 100;
-//                gasolinaTotal = 100;
-//                document.getElementById("dificultad").innerHTML = "Fácil";
-//                dificultad = 1
-//                restart();
-//                break;
-//        }
-//    }
-//
-//    //CAMBIAR LA IMAGEN DE LA LUNA
-//    document.getElementById("modeloLuna").onclick = function cambiarModeloLuna() {
-//        switch (modeloLuna) {
-//            case 1:
-//                document.getElementById("luna").src = "img/mod2luna.png";
-//                document.getElementById("modeloLuna").innerHTML = "Gris";
-//                modeloLuna = 2;
-//                break;
-//            case 2:
-//                document.getElementById("luna").src = "img/luna.png";
-//                document.getElementById("modeloLuna").innerHTML = "Amarilla";
-//                modeloLuna = 1;
-//                break;
-//        }
-//    }
-//
-//    //CAMBIAR LA IMAGEN DE LA NAVE Y EL MOTOR
-//    document.getElementById("modeloNave").onclick = function cambiarModeloNave() {
-//        switch (modeloNave) {
-//            case 1:
-//                document.getElementById("imgNave").src = "img/mod2nave.gif";
-//                document.getElementById("imgMotor").src = "img/mod2motor.gif";
-//                document.getElementById("modeloNave").innerHTML = "Modelo PodRacer";
-//                modeloNave = 2;
-//                restart();
-//                break;
-//            case 2:
-//                document.getElementById("imgNave").src = "img/nave.png";
-//                document.getElementById("imgMotor").src = "img/motor.gif";
-//                document.getElementById("modeloNave").innerHTML = "Modelo Estándar";
-//                modeloNave = 1;
-//                restart();
-//                break;
-//        }
-//    }
+
 
     //Empezar a mover nave
     start();
@@ -360,7 +298,7 @@ function reiniciarJuego() {
     document.getElementById("intentos").innerHTML = intentos;
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("userWin").style.display = "none";
-
+    cambiarModeloNave();
 }
 
 function reanudar() {
@@ -423,6 +361,11 @@ function reiniciarJuegoSmartphone() {
     document.getElementById("intentos").innerHTML = intentos;
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("userWin").style.display = "none";
+    if (modeloNave == 1) {
+        document.getElementById("imgNave").src = "img/nave.png";
+    } else {
+        document.getElementById("imgNave").src = "img/mod2nave.gif";
+    }
 }
 
 function mostrarAjustesSmartphone() {
@@ -504,10 +447,13 @@ function cambiarDificultad() {
 }
 
 function initConfig() {
+    pausar();
+    stop();
     var url = "getFileExc";
     var emess = "Error desconocido";
 
     $.ajax({
+        method: "GET",
         url: url,
         dataType: 'json',
         success: function (jsn) {
@@ -526,8 +472,8 @@ function initConfig() {
                 alert(e["responseJSON"]["error"]);
         }
     });
-    start();
 }
+
 
 function saveConfig() {
     var url = "getFileExc";

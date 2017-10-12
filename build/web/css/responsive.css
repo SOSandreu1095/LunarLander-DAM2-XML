@@ -172,15 +172,9 @@
 	left: 10%;
 	top: 10%;
 }
-#dificultad {
-	padding: 10px;
-	font-size: 120%;
-}
-#modeloLuna {
-	padding: 10px;
-	font-size: 120%;
-}
-#modeloNave {
+
+
+.btnDif, .btnLuna, .btnNave, #btnSave{
 	padding: 10px;
 	font-size: 120%;
 }
