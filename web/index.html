@@ -8,11 +8,49 @@
         <link rel='stylesheet' media='screen and (min-width: 601px)' href='css/responsive.css'>
         <link rel='stylesheet' media='screen and (max-width: 600px)' href='css/smartphone.css'>
         <script src="js/js.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     </head>
 
     <body id="contenedor">
+
+        <div class="container">
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Choose a saved configuration</h4>
+                        </div>
+                        <div class="modal-body center-text">
+                            <label for="sel1">Select list (select one):</label>
+                            <select id="selectConf" class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <br>
+                            <button type="button" class="btnC btn btn-primary" data-dismiss="modal">LOAD</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
 
         <div id="nave">
             <img id ="imgNave" src="img/nave.png" alt="img nave">
@@ -87,7 +125,9 @@
             <button class="btnNave" id="modeloNaveEst">Modelo Estándar</button>
             <button class="btnNave" id="modeloNaveSW">Modelo Star Wars</button><br><br><br>
             <button id="btnSave">Guardar Configuración</button>
+            <input id="nameConfigText" type="text"/>
             <br><br>
         </div>
+
     </body>
 </html>

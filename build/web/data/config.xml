@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<configuraciones>
+    <configuracion id="1">
+        <nombre>Me Es Gr</nombre>
+        <dificultad>media</dificultad>
+        <modeloNave>estandar</modeloNave>
+        <modeloLuna>gris</modeloLuna>
+    </configuracion>
+    <configuracion id="2">
+        <nombre>Me SW Gr</nombre>
+        <dificultad>media</dificultad>
+        <modeloNave>starWars</modeloNave>
+        <modeloLuna>gris</modeloLuna>
+    </configuracion>
+</configuraciones>

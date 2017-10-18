@@ -13,12 +13,15 @@ var modeloLuna = "amarilla";
 var timerFuel = null;
 
 window.onload = function () {
+
+    
     
     initConfig();
     document.getElementById("btnSave").onclick = function () {
         saveConfig();
         cambiarDificultad();
     }
+
     //CAMBIAR LA DIFICULTAD DEL JUEGO
     document.getElementById("dificultadFac").onclick = function () {
         dificultad = "facil";
@@ -56,7 +59,7 @@ window.onload = function () {
         modeloNave = "starWars"
         cambiarModeloNave();
     }
-    
+
     //CAPTURA SI EL DISPOSITIVO RECIBE EVENTOS OUNTOUCH (SMARTPHONE)
     function is_touch_device() {
         if ('ontouchstart' in window) {
@@ -77,6 +80,8 @@ window.onload = function () {
     document.getElementById("instrucciones").onclick = function () {
         mostrarInstrucciones();
     };
+
+
     document.getElementById("botonAjustes").onclick = function () {
         mostrarAjustes();
     };
@@ -139,6 +144,7 @@ window.onload = function () {
     }
     window.onkeyup = apagarMotor;
 
+$("#myModal").modal("show");
 }//TERMINA EL WINDOW.ONLOAD
 
 
