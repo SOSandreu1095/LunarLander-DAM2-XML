@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/admin/Documents/NetBeansProjects/0002%20-%20Lunar%20Lander%20XML%20JAXB/web/data/config.xsd" uri="src/conf/xml-resources/jaxb/JAXBClass/config.xsd"/>
+</catalog>

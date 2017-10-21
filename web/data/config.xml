@@ -6,13 +6,13 @@ and open the template in the editor.
 -->
 <configuraciones>
     <configuracion id="1">
-        <nombre>Me Es Gr</nombre>
+        <nombre>Default</nombre>
         <dificultad>media</dificultad>
         <modeloNave>estandar</modeloNave>
-        <modeloLuna>gris</modeloLuna>
+        <modeloLuna>amarilla</modeloLuna>
     </configuracion>
     <configuracion id="2">
-        <nombre>Me SW Gr</nombre>
+        <nombre>Andreu</nombre>
         <dificultad>media</dificultad>
         <modeloNave>starWars</modeloNave>
         <modeloLuna>gris</modeloLuna>

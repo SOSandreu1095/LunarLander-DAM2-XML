@@ -12,11 +12,30 @@ var modeloNave = "estandar";
 var modeloLuna = "amarilla";
 var timerFuel = null;
 
+var arrayConfiguraciones = [];
+
 window.onload = function () {
 
-    
-    
+    mostrarMenuPrincipal();
+
     initConfig();
+
+    $("#btnLoad").click(function () {   
+        var i = $("#selectConf").val();
+        alert(i);
+        dificultad = arrayConfiguraciones[i].dificultad;
+        modeloNave = arrayConfiguraciones[i].modeloNave;
+        modeloLuna = arrayConfiguraciones[i].modeloLuna;
+        
+        cambiarDificultad();
+        cambiarModeloNave();
+        cambiarModeloLuna();
+    });
+    
+    $("#btnNewConfig").click(function(){
+       mostrarAjustes(); 
+    });
+    
     document.getElementById("btnSave").onclick = function () {
         saveConfig();
         cambiarDificultad();
@@ -83,7 +102,7 @@ window.onload = function () {
 
 
     document.getElementById("botonAjustes").onclick = function () {
-        mostrarAjustes();
+        $("#myModal").modal("show");
     };
     //CAPTURANDO EVENTOS PARA EL PANcEL DERECHO EN SMARTPHONE
     document.getElementById("reanudaSmartphone").onclick = function () {
@@ -144,7 +163,6 @@ window.onload = function () {
     }
     window.onkeyup = apagarMotor;
 
-$("#myModal").modal("show");
 }//TERMINA EL WINDOW.ONLOAD
 
 
@@ -453,31 +471,50 @@ function cambiarDificultad() {
 }
 
 function initConfig() {
-    pausar();
-    stop();
+
+    
     var url = "getFileExc";
     var emess = "Error desconocido";
 
-    $.ajax({
-        method: "GET",
-        url: url,
-        dataType: 'json',
-        success: function (jsn) {
-            dificultad = jsn.dificultad;
-            modeloNave = jsn.modeloNave;
-            modeloLuna = jsn.modeloLuna;
 
-            cambiarDificultad();
-            cambiarModeloNave();
-            cambiarModeloLuna();
+
+    $.ajax({
+        method: "get",
+        url: url, //canviar al Servlet després de comprovar que funciona.
+        dataType: "xml",
+        success: function (dataXML) {
+            var ind = arrayConfiguraciones.length;
+            $(dataXML).find("configuracion").each(function (i) {
+                var txt = "";
+                var nombre = $(this).find('nombre').text();
+                var dif = $(this).find('dificultad').text();
+                var nav = $(this).find('modeloNave').text();
+                var lun = $(this).find('modeloLuna').text();
+                txt += nombre + " ----- (" + dif + " - " + nav + " - " + lun + ")";
+
+                //Add this config to our array of configs
+                addConfigurationToArray(nombre, dif, nav, lun);
+
+                
+                //Add this config to the select
+                $('#selectConf').append($('<option>', {
+                    value: ind,
+                    text: txt
+                }));
+                ind++;
+            });
         },
         error: function (e) {
+            1
             if (e["responseJSON"] === undefined)
                 alert(emess);
             else
                 alert(e["responseJSON"]["error"]);
         }
     });
+
+    pausar();
+    stop();
 }
 
 
@@ -500,3 +537,16 @@ function saveConfig() {
         }
     });
 }
+
+function mostrarMenuPrincipal(){
+    $("#myModal").modal("show");
+    
+}
+
+function addConfigurationToArray(nombre, dificultad, nave, luna) {
+    var c = {nombre: nombre, dificultad: dificultad, modeloNave: nave, modeloLuna: luna};
+    arrayConfiguraciones.push(c);
+}
+
+
+
