@@ -4,16 +4,22 @@
  * and open the template in the editor.
  */
 
+import generated.Configuraciones;
+import generated.ObjectFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.io.StringWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -21,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class getFileExc extends HttpServlet {
 
-  
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,34 +39,22 @@ public class getFileExc extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        //Set new File object
+        ServletContext context = getServletContext();
+        String fullPath = context.getRealPath("/data/config.xml");
+        File f = new File(fullPath);
 
-        try {
-
-            //Get absolute path from root web path /WebContent/*
-            ServletContext context = getServletContext();
-            String fullPath = context.getRealPath("/data/config.json");
-            //Create File object
-            File f = new File(fullPath);
-            String jsonString = null;
-
-            //Create RandomAccessFile Object to read
-            RandomAccessFile frar = new RandomAccessFile(f, "r");
-            jsonString = frar.readLine();
-            /* use readUTF() only with writeUTF(); */
-            frar.close();
-
-            response.setContentType("application/json");
-            PrintWriter pw = response.getWriter();
-            pw.println(jsonString);
-        } catch (Exception e) {
-
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.setContentType("application/json");
-            PrintWriter pw = response.getWriter();
-            pw.println("{\"error\":\"Ha sido imposible recuperar los datos\"}");
-
-        }
+        //parse xml to object (Personas, previusly created with JAXB)
+        ObjectFactory jaxb = new ObjectFactory();
+        Configuraciones cnfs = jaxb.xmlToObject(f);  //En aquest punt podem modificar prs, es un objecte.
+        //marshall object to string xml
+        StringWriter sw = new StringWriter();
+        JAXB.marshal(cnfs, sw);
+        String xmlString = sw.toString();
+        //return XML
+        response.setContentType("text/xml");
+        PrintWriter pw = response.getWriter();
+        pw.println(xmlString);
     }
 
     /**
@@ -78,24 +71,39 @@ public class getFileExc extends HttpServlet {
         //processRequest(request, response);
 
         try {
+            String nombre = request.getParameter("nombre");
             String dif = request.getParameter("dificultad");
             String nav = request.getParameter("modeloNave");
             String lun = request.getParameter("modeloLuna");
 
             ServletContext context = getServletContext();
-            String fullPath = context.getRealPath("/data/config.json");
-
-            String filecontent = "{\"dificultad\":\"" + dif + "\",\"modeloNave\":\"" + nav + "\",\"modeloLuna\":\"" + lun + "\"}";
-
-            //Create File object
+            String fullPath = context.getRealPath("/config.xml");
             File f = new File(fullPath);
-            FileWriter fw = new FileWriter(f);
-            fw.write(filecontent);
-            fw.close();
+//
+////parsear el fichero (pasarlo a lista de Configuraciones)
+            ObjectFactory jaxb = new ObjectFactory();
+            Configuraciones cns = jaxb.xmlToObject(f);
+
+            
+            Configuraciones.Configuracion c = new Configuraciones.Configuracion();
+            byte b = 23;
+            c.setId(b);
+            c.setNombre(nombre);
+            c.setDificultad(dif);
+            c.setModeloNave(nav);
+            c.setModeloLuna(lun);
+            cns.getConfiguracion().add(c); //En esta LINEA PETA
+//
+//            JAXBContext jaxbContext = JAXBContext.newInstance(Configuraciones.class);
+//            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+//
+//            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//
+//            jaxbMarshaller.marshal(cns, f);
 
             response.setContentType("application/json");
             PrintWriter pw = response.getWriter();
-            pw.println("{\"mess\":\"El fichero ha sido guardado correctamente\"}");
+            pw.println("{\"mess\":\"Se ha guardado correctamente\"}");
 
         } catch (Exception e) {
 
