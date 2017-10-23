@@ -20,25 +20,23 @@ window.onload = function () {
 
     initConfig();
 
-    $("#btnLoad").click(function () {   
+    $("#btnLoad").click(function () {
         var i = $("#selectConf").val();
-        alert(i);
         dificultad = arrayConfiguraciones[i].dificultad;
         modeloNave = arrayConfiguraciones[i].modeloNave;
         modeloLuna = arrayConfiguraciones[i].modeloLuna;
-        
+
         cambiarDificultad();
         cambiarModeloNave();
         cambiarModeloLuna();
     });
-    
-    $("#btnNewConfig").click(function(){
-       mostrarAjustes(); 
+
+    $("#btnNewConfig").click(function () {
+        mostrarAjustes();
     });
-    
+
     document.getElementById("btnSave").onclick = function () {
         saveConfig();
-        cambiarDificultad();
     }
 
     //CAMBIAR LA DIFICULTAD DEL JUEGO
@@ -472,7 +470,7 @@ function cambiarDificultad() {
 
 function initConfig() {
 
-    
+
     var url = "getFileExc";
     var emess = "Error desconocido";
 
@@ -483,6 +481,7 @@ function initConfig() {
         url: url, //canviar al Servlet després de comprovar que funciona.
         dataType: "xml",
         success: function (dataXML) {
+
             var ind = arrayConfiguraciones.length;
             $(dataXML).find("configuracion").each(function (i) {
                 var txt = "";
@@ -490,22 +489,13 @@ function initConfig() {
                 var dif = $(this).find('dificultad').text();
                 var nav = $(this).find('modeloNave').text();
                 var lun = $(this).find('modeloLuna').text();
-                txt += nombre + " ----- (" + dif + " - " + nav + " - " + lun + ")";
 
                 //Add this config to our array of configs
                 addConfigurationToArray(nombre, dif, nav, lun);
-
-                
-                //Add this config to the select
-                $('#selectConf').append($('<option>', {
-                    value: ind,
-                    text: txt
-                }));
                 ind++;
             });
         },
         error: function (e) {
-            1
             if (e["responseJSON"] === undefined)
                 alert(emess);
             else
@@ -519,15 +509,21 @@ function initConfig() {
 
 
 function saveConfig() {
-    var url = "getFileExc";
+    var n = $("#nameConfigText").val();
+    var d = dificultad;
+    var nav = modeloNave;
+    var lun = modeloLuna;
+
     var emess = "Error desconocido";
+    var url = "getFileExc"; //doPost->SaveFile
 
     $.ajax({
         method: "POST",
         url: url,
-        data: {dificultad: dificultad, modeloNave: modeloNave, modeloLuna: modeloLuna},
-        success: function (u) {
-            alert(u["mess"]);
+        data: {nombre: n, dificultad: d, modeloNave: nav, modeloLuna: lun},
+        success: function (rsp) {
+            addConfigurationToArray(n, d, nav, lun);
+            alert(rsp["mess"]);
         },
         error: function (e) {
             if (e["responseJSON"] === undefined)
@@ -538,14 +534,21 @@ function saveConfig() {
     });
 }
 
-function mostrarMenuPrincipal(){
+function mostrarMenuPrincipal() {
     $("#myModal").modal("show");
-    
+
 }
 
 function addConfigurationToArray(nombre, dificultad, nave, luna) {
     var c = {nombre: nombre, dificultad: dificultad, modeloNave: nave, modeloLuna: luna};
     arrayConfiguraciones.push(c);
+   
+   //Add this config to the select
+    var txt = nombre + " ----- (" + dificultad + " - " + nave + " - " + luna + ")";
+    $('#selectConf').append($('<option>', {
+        value: arrayConfiguraciones.length-1,
+        text: txt
+    }));
 }
 
 

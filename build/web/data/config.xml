@@ -24,4 +24,28 @@
         <modeloNave>starWars</modeloNave>
         <modeloLuna>gris</modeloLuna>
     </configuracion>
+    <configuracion>
+        <nombre>holii</nombre>
+        <dificultad>dificil</dificultad>
+        <modeloNave>starWars</modeloNave>
+        <modeloLuna>gris</modeloLuna>
+    </configuracion>
+    <configuracion>
+        <nombre>1</nombre>
+        <dificultad>facil</dificultad>
+        <modeloNave>estandar</modeloNave>
+        <modeloLuna>amarilla</modeloLuna>
+    </configuracion>
+    <configuracion>
+        <nombre>2</nombre>
+        <dificultad>media</dificultad>
+        <modeloNave>estandar</modeloNave>
+        <modeloLuna>amarilla</modeloLuna>
+    </configuracion>
+    <configuracion>
+        <nombre>3</nombre>
+        <dificultad>media</dificultad>
+        <modeloNave>estandar</modeloNave>
+        <modeloLuna>amarilla</modeloLuna>
+    </configuracion>
 </configuraciones>
