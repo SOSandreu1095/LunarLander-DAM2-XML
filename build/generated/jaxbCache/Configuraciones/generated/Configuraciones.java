@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.5-2 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: PM.10.23 a las 03:08:39 PM CEST 
+// Generado el: PM.10.23 a las 03:08:41 PM CEST 
 //
 
 
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -38,7 +37,6 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="modeloNave" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="modeloLuna" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}byte" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -105,7 +103,6 @@ public class Configuraciones {
      *         &lt;element name="modeloNave" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="modeloLuna" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *       &lt;/sequence>
-     *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}byte" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -130,8 +127,6 @@ public class Configuraciones {
         protected String modeloNave;
         @XmlElement(required = true)
         protected String modeloLuna;
-        @XmlAttribute(name = "id")
-        protected Byte id;
 
         /**
          * Obtiene el valor de la propiedad nombre.
@@ -227,30 +222,6 @@ public class Configuraciones {
          */
         public void setModeloLuna(String value) {
             this.modeloLuna = value;
-        }
-
-        /**
-         * Obtiene el valor de la propiedad id.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Byte }
-         *     
-         */
-        public Byte getId() {
-            return id;
-        }
-
-        /**
-         * Define el valor de la propiedad id.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Byte }
-         *     
-         */
-        public void setId(Byte value) {
-            this.id = value;
         }
 
     }

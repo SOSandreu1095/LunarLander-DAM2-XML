@@ -5,14 +5,14 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <configuraciones>
-    <configuracion id="1">
+    <configuracion>
         <nombre>Default</nombre>
         <dificultad>media</dificultad>
         <modeloNave>estandar</modeloNave>
         <modeloLuna>amarilla</modeloLuna>
     </configuracion>
-    <configuracion id="2">
-        <nombre>Andreu2</nombre>
+    <configuracion>
+        <nombre>Ramon</nombre>
         <dificultad>media</dificultad>
         <modeloNave>starWars</modeloNave>
         <modeloLuna>gris</modeloLuna>

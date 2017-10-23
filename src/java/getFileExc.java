@@ -5,6 +5,7 @@
  */
 
 import generated.Configuraciones;
+import generated.Configuraciones.Configuracion;
 import generated.ObjectFactory;
 import java.io.File;
 import java.io.FileWriter;
@@ -77,43 +78,35 @@ public class getFileExc extends HttpServlet {
             String lun = request.getParameter("modeloLuna");
 
             ServletContext context = getServletContext();
-            String fullPath = context.getRealPath("/config.xml");
+            String fullPath = context.getRealPath("/data/config.xml");
             File f = new File(fullPath);
-//
-////parsear el fichero (pasarlo a lista de Configuraciones)
-            ObjectFactory jaxb = new ObjectFactory();
-            Configuraciones cns = jaxb.xmlToObject(f);
 
-            
-            Configuraciones.Configuracion c = new Configuraciones.Configuracion();
-            byte b = 23;
-            c.setId(b);
+//parsear el fichero (pasarlo a lista de Animales)
+            ObjectFactory jaxb = new ObjectFactory();
+            Configuraciones cnfs = jaxb.xmlToObject(f);
+
+
+            Configuracion c = new Configuracion();
             c.setNombre(nombre);
             c.setDificultad(dif);
             c.setModeloNave(nav);
             c.setModeloLuna(lun);
-            cns.getConfiguracion().add(c); //En esta LINEA PETA
-//
-//            JAXBContext jaxbContext = JAXBContext.newInstance(Configuraciones.class);
-//            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-//
-//            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//
-//            jaxbMarshaller.marshal(cns, f);
+            
+            cnfs.getConfiguracion().add(c); //PETA AQUI, null pointer exception
+            jaxb.objectToXml(cnfs, f);
 
-            response.setContentType("application/json");
+            response.setContentType("application/json"); 
             PrintWriter pw = response.getWriter();
             pw.println("{\"mess\":\"Se ha guardado correctamente\"}");
 
         } catch (Exception e) {
-
+            System.out.println("ERROR: "+e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("application/json");
             PrintWriter pw = response.getWriter();
             pw.println("{\"error\":\"Ha sido imposible guardar los datos\"}");
 
         }
-
     }
 
     /**

@@ -2,13 +2,14 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.5-2 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen. 
-// Generado el: PM.10.19 a las 05:51:37 PM CEST 
+// Generado el: PM.10.23 a las 03:08:39 PM CEST 
 //
 package generated;
 
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -63,4 +64,21 @@ public class ObjectFactory {
         }
     }
 
+    public void objectToXml(Configuraciones cds, File rf) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Configuraciones.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            //Optional
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            //Do the job
+            jaxbMarshaller.marshal(cds, rf);
+
+            //Optional: output pretty printed
+            //jaxbMarshaller.marshal(cds, System.out);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
 }
